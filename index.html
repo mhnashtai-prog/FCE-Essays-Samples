@@ -32,7 +32,7 @@
                   #0d0d0d;
       z-index: 0;
     }
-
+    
     .container {
       max-width: 900px;
       width: 100%;
@@ -533,30 +533,36 @@
       box-shadow: 0 8px 24px rgba(201, 169, 97, 0.4);
     }
 
-    /* Mobile Responsive */
+/* Mobile Responsive */
     @media (max-width: 768px) {
       body {
         padding: 0.5rem;
       }
       
       .top-nav {
-        flex-wrap: wrap;
-        gap: 0.25rem;
+        /* flex-wrap: wrap; */ /* Removed to keep all items on one line */
+        gap: 0.5rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0;
       }
       
       .nav-left {
-        order: 1;
+        /* order: 1; */ /* Not needed without flex-wrap */
+        flex: 0 0 auto;
       }
       
       .nav-center {
-        order: 2;
-        flex-basis: 100%;
-        flex: 0 1 auto;
+        /* order: 2; */
+        /* flex-basis: 100%; */ /* Removed to prevent full-width */
+        flex: 1 1 auto; /* Allow it to grow but not force new line */
+        text-align: center;
       }
       
       .nav-right {
-        order: 3;
-        margin-left: auto;
+        /* order: 3; */
+        /* margin-left: auto; */ /* Not needed with space-between */
+        flex: 0 0 auto;
       }
       
       .nav-title {
@@ -564,35 +570,41 @@
       }
       
       .nav-link, .full-mode-link {
-        font-size: 0.625rem;
-      }
-      
-      .toggle-label {
-        font-size: 0.625rem;
-      }
-      
-      .toggle-switch {
-        width: 2rem;
-        height: 1rem;
-      }
-      
-      .toggle-switch::after {
-        width: 0.75rem;
-        height: 0.75rem;
-      }
-      
-      .toggle-switch.active::after {
-        left: 1.125rem;
-      }
-      
-      .subtitle {
-        font-size: 0.7rem;
-      }
-      
-      .author {
         font-size: 0.6rem;
       }
       
+      .toggle-label {
+        font-size: 0.6rem;
+      }
+      
+      .toggle-switch {
+        width: 1.75rem;
+        height: 0.875rem;
+      }
+      
+      .toggle-switch::after {
+        width: 0.625rem;
+        height: 0.625rem;
+        top: 0.0625rem;
+        left: 0.0625rem;
+      }
+      
+      .toggle-switch.active::after {
+        left: 1rem;
+      }
+      
+      header {
+        margin-bottom: 0.5rem;
+        padding: 0.25rem 0;
+      }
+      
+      .subtitle {
+        font-size: 0.65rem;
+      }
+      
+      .author {
+        font-size: 0.575rem;
+      }
       .card-container {
         padding: 1rem;
         height: calc(100vh - 260px);
