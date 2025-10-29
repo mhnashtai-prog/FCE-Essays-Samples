@@ -374,49 +374,50 @@
       border-radius: 0.25rem;
     }
     
-    @media (max-width: 768px) {
-      body {
-        padding: 0.5rem;
-      }
-      
-      header h1 {
-        font-size: 1.5rem;
-      }
-      
-      .subtitle {
-        font-size: 0.7rem;
-      }
-      
-      .author {
-        font-size: 0.6rem;
-      }
-      
-      .card-container {
-        padding: 1rem;
-      }
-      
-      .essay-answer {
-        font-size: 0.85rem;
-      }
-      
-      .skeleton-item {
-        font-size: 0.75rem;
-      }
-      
-      .arrow {
-        width: 3rem;
-        height: 3rem;
-      }
-      
-      .nav-dots {
-        gap: 0.4rem;
-      }
-      
-      .dot {
-        width: 10px;
-        height: 10px;
-      }
-    }
+  @media (max-width: 768px) {
+  body {
+    padding: 0.5rem;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 0.7rem;
+  }
+  
+  .author {
+    font-size: 0.6rem;
+  }
+  
+  .card-container {
+    padding: 1rem;
+    height: calc(100vh - 220px); /* ADD THIS LINE */
+  }
+  
+  .essay-answer {
+    font-size: 0.85rem;
+  }
+  
+  .skeleton-item {
+    font-size: 0.75rem;
+  }
+  
+  .arrow {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .nav-dots {
+    gap: 0.4rem;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
   </style>
 </head>
 <body>
