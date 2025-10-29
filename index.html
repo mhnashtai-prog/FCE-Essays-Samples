@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +41,7 @@
       z-index: 1;
     }
     
+    /* Top Navigation Bar */
    /* Top Navigation Bar */
 .top-nav {
   display: flex;
@@ -662,7 +664,7 @@
     </header>
     
     <div class="card-container">
-    <div class="card" id="card">
+      <div class="card" id="card" onclick="flipCard()">
         <div class="card-face card-front">
           <div class="card-label">ESSAY QUESTION & PARAGRAPH PLAN</div>
           <div style="text-align: center; margin-bottom: 1rem;">
@@ -804,17 +806,16 @@ let lastTouchY = 0;
       viewedCards.add(currentIndex);
       updateDots();
     }
-function flipCard() {
-  if (isScrolling) return;
-  
-  const card = document.getElementById('card');
-  isFlipped = !isFlipped;
-  if (isFlipped) {
-    card.classList.add('flipped');
-  } else {
-    card.classList.remove('flipped');
-  }
-}
+
+    function flipCard() {
+      const card = document.getElementById('card');
+      isFlipped = !isFlipped;
+      if (isFlipped) {
+        card.classList.add('flipped');
+      } else {
+        card.classList.remove('flipped');
+      }
+    }
 
     function unflipCard() {
       const card = document.getElementById('card');
@@ -880,55 +881,7 @@ function flipCard() {
         resetProgress();
       }
     });
-// Card face references
-const cardFront = document.querySelector('.card-front');
-const cardBack = document.querySelector('.card-back');
 
-// Desktop click events
-cardFront.addEventListener('click', (e) => {
-  if (!('ontouchstart' in window)) {
-    flipCard();
-  }
-});
-
-cardBack.addEventListener('click', (e) => {
-  if (!('ontouchstart' in window)) {
-    flipCard();
-  }
-});
-
-// Mobile touch events
-[cardFront, cardBack].forEach(face => {
-  face.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-    lastTouchY = touchStartY;
-    touchStartTime = Date.now();
-    isScrolling = false;
-  }, { passive: true });
-
-  face.addEventListener('touchmove', (e) => {
-    const touchMoveY = e.touches[0].clientY;
-    const deltaY = Math.abs(touchMoveY - lastTouchY);
-    
-    if (deltaY > 5) {
-      isScrolling = true;
-    }
-    lastTouchY = touchMoveY;
-  }, { passive: true });
-
-  face.addEventListener('touchend', (e) => {
-    const touchDuration = Date.now() - touchStartTime;
-    const totalDelta = Math.abs(lastTouchY - touchStartY);
-    
-    if (touchDuration < 200 && totalDelta < 10 && !isScrolling) {
-      flipCard();
-    }
-    
-    setTimeout(() => {
-      isScrolling = false;
-    }, 100);
-  }, { passive: true });
-});
     render();
   </script>
 </body>
