@@ -880,7 +880,55 @@ function flipCard() {
         resetProgress();
       }
     });
+// Card face references
+const cardFront = document.querySelector('.card-front');
+const cardBack = document.querySelector('.card-back');
 
+// Desktop click events
+cardFront.addEventListener('click', (e) => {
+  if (!('ontouchstart' in window)) {
+    flipCard();
+  }
+});
+
+cardBack.addEventListener('click', (e) => {
+  if (!('ontouchstart' in window)) {
+    flipCard();
+  }
+});
+
+// Mobile touch events
+[cardFront, cardBack].forEach(face => {
+  face.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+    lastTouchY = touchStartY;
+    touchStartTime = Date.now();
+    isScrolling = false;
+  }, { passive: true });
+
+  face.addEventListener('touchmove', (e) => {
+    const touchMoveY = e.touches[0].clientY;
+    const deltaY = Math.abs(touchMoveY - lastTouchY);
+    
+    if (deltaY > 5) {
+      isScrolling = true;
+    }
+    lastTouchY = touchMoveY;
+  }, { passive: true });
+
+  face.addEventListener('touchend', (e) => {
+    const touchDuration = Date.now() - touchStartTime;
+    const totalDelta = Math.abs(lastTouchY - touchStartY);
+    
+    if (touchDuration < 200 && totalDelta < 10 && !isScrolling) {
+      flipCard();
+    }
+    
+    setTimeout(() => {
+      isScrolling = false;
+    }, 100);
+  }, { passive: true });
+});
     render();
   </script>
 </body>
