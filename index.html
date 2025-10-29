@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>INTUITY: B2 First Review Practice</title>
+  <title>INTUITY: B2 First Essay Practice</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -259,7 +259,6 @@
       transform-style: preserve-3d;
       transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
-      touch-action: pan-y;
     }
     
     .card.flipped {
@@ -280,9 +279,6 @@
       flex-direction: column;
       box-shadow: none;
       overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
     }
     
     .card-face::-webkit-scrollbar { 
@@ -337,7 +333,7 @@
       text-align: center;
     }
 
-    .type-badge {
+    .essay-type-badge {
       display: inline-block;
       padding: 0.25rem 0.75rem;
       background: rgba(201, 169, 97, 0.1);
@@ -361,13 +357,6 @@
       color: #d1d1d6;
       line-height: 1.6;
       font-weight: 500;
-    }
-
-    .context-text {
-      font-size: 0.8rem;
-      color: #8e8e93;
-      font-style: italic;
-      margin-bottom: 0.75rem;
     }
 
     .skeleton-section {
@@ -412,30 +401,15 @@
       font-weight: 500;
     }
 
-    .review-answer {
+    .essay-answer {
       font-size: 0.9rem;
       line-height: 1.8;
       color: #d1d1d6;
       text-align: justify;
     }
     
-    .review-answer p {
+    .essay-answer p {
       margin-bottom: 1.25rem;
-    }
-
-    .review-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #C9A961;
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    .word-count {
-      font-size: 0.7rem;
-      color: #636366;
-      text-align: center;
-      margin-bottom: 1rem;
     }
 
     .discourse {
@@ -445,6 +419,11 @@
 
     .vocabulary {
       color: inherit;
+      font-weight: 400;
+    }
+
+    .causal {
+      color: #87CEEB;
       font-weight: 400;
     }
 
@@ -549,46 +528,53 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(201, 169, 97, 0.4);
     }
-    
-    @media (max-width: 768px) {
-      body {
-        padding: 0.5rem;
-      }
-      
-      .subtitle {
-        font-size: 0.7rem;
-      }
-      
-      .author {
-        font-size: 0.6rem;
-      }
-      
-      .card-container {
-        padding: 1rem;
-      }
-      
-      .review-answer {
-        font-size: 0.85rem;
-      }
-      
-      .skeleton-item {
-        font-size: 0.75rem;
-      }
-      
-      .arrow {
-        width: 3rem;
-        height: 3rem;
-      }
-      
-      .nav-dots {
-        gap: 0.4rem;
-      }
-      
-      .dot {
-        width: 10px;
-        height: 10px;
-      }
+
+    .legend-box {
+      width: 16px;
+      height: 16px;
+      border-radius: 0.25rem;
     }
+    
+  @media (max-width: 768px) {
+  body {
+    padding: 0.5rem;
+  }
+  
+  .subtitle {
+    font-size: 0.7rem;
+  }
+  
+  .author {
+    font-size: 0.6rem;
+  }
+  
+  .card-container {
+    padding: 1rem;
+    height: calc(100vh - 260px);
+  }
+  
+  .essay-answer {
+    font-size: 0.85rem;
+  }
+  
+  .skeleton-item {
+    font-size: 0.75rem;
+  }
+  
+  .arrow {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .nav-dots {
+    gap: 0.4rem;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
   </style>
 </head>
 <body>
@@ -614,19 +600,17 @@
     
     <header>
       <p class="subtitle">Intuitive & Immersive Learning</p>
-      <p class="author">Majid Nashtai · B2 First Reviews</p>
+      <p class="author">Majid Nashtai · B2 First Essays</p>
     </header>
     
     <div class="card-container">
-      <div class="card" id="card">
+      <div class="card" id="card" onclick="flipCard()">
         <div class="card-face card-front">
-          <div class="card-label">REVIEW QUESTION</div>
+          <div class="card-label">ESSAY QUESTION & PARAGRAPH PLAN</div>
           <div style="text-align: center; margin-bottom: 1rem;">
             <span class="topic-badge" id="topicBadge"></span>
-            <span class="type-badge" id="typeBadge"></span>
+            <span class="essay-type-badge" id="essayTypeBadge"></span>
           </div>
-          
-          <div class="context-text" id="contextText"></div>
           
           <div class="question-box" id="questionBox"></div>
           
@@ -636,18 +620,15 @@
         </div>
         
         <div class="card-face card-back">
-          <div class="card-label">SAMPLE REVIEW WITH KEY EXPRESSIONS</div>
+          <div class="card-label">SAMPLE ANSWER WITH KEY EXPRESSIONS</div>
           <div style="text-align: center; margin-bottom: 1rem;">
             <span class="topic-badge" id="topicBadgeBack"></span>
-            <span class="type-badge" id="typeBadgeBack"></span>
+            <span class="essay-type-badge" id="essayTypeBadgeBack"></span>
           </div>
 
-          <div class="review-title" id="reviewTitle"></div>
-          <div class="word-count" id="wordCount"></div>
-
-          <div class="review-answer" id="reviewAnswer"></div>
+          <div class="essay-answer" id="essayAnswer"></div>
           
-          <div class="card-hint">💡 Click to see question again</div>
+          <div class="card-hint">💡 Click to see question & skeleton again</div>
         </div>
       </div>
     </div>
@@ -663,67 +644,72 @@
   </div>
 
   <script>
-    const reviewData = [
+    const essayData = [
       {
-        id: "film-surprising-character-1",
-        topic: "Film Review",
-        type: "Film",
-        context: "You see this announcement in your college English-language magazine.",
-        question: "Film reviews wanted! Have you seen a film recently where the main character behaved in a surprising way? Write us a review of the film, explaining what the main character did and why it was surprising. Tell us whether or not you would recommend this film to other people.",
+        id: "env-pollution",
+        topic: "Environment & Pollution",
+        essayType: "Problem-Solution",
+        question: "Every country in the world has problems with pollution and damage to the environment. Do you think these problems can be solved?",
+        writingPoints: ["transport", "rivers and seas", "recycling (your own idea)"],
         skeleton: [
           {
-            title: "PARAGRAPH 1: Introduction & Film Overview",
+            title: "PARAGRAPH 1: Introduction",
             items: [
-              "Opening: <span class='skeleton-emphasis'>[choosing phrase]</span> Choosing a psychological thriller can be a huge challenge",
-              "Name the film: The Silent Patient",
-              "Brief plot: Alicia stops speaking after being accused of murder"
+              "Opening sentence: <span class='skeleton-emphasis'>[concern]</span> Growing anxiety surrounds environmental problems",
+              "Introduce the topic: Pollution affects all countries globally",
+              "State your position: Problems <span class='skeleton-emphasis'>CAN be solved</span> with collective action and technology"
             ]
           },
           {
-            title: "PARAGRAPH 2: Main Character - What Impressed You",
+            title: "PARAGRAPH 2: Transport Solutions",
             items: [
-              "Start with discourse marker: <span class='skeleton-emphasis'>The thing that is most likely to impress you is...</span>",
-              "Feature 1: The performance was outstanding",
-              "Expand with detail: Her ability to convey emotion without words",
-              "Add technique: Silence was used to build tension throughout"
+              "State your main idea: The main solution is improving public transport systems",
+              "Give an example: Electric buses and trains in major cities",
+              "Show the result: This reduces emissions significantly",
+              "Explain why (reason): Because fewer private cars are needed"
             ]
           },
           {
-            title: "PARAGRAPH 3: Surprising Behaviour/Plot Twist",
+            title: "PARAGRAPH 3: Rivers & Seas Solutions",
             items: [
-              "Second discourse marker: <span class='skeleton-emphasis'>The other feature which I found most impressive is...</span>",
-              "The surprising element: The plot twist",
-              "Specific example: Final twenty minutes reveal shocking truth",
-              "Reader impact: You'll want to watch again to spot clues"
+              "State your main idea: Strict regulations are needed for waterways",
+              "Give an example: Heavy fines for factories dumping waste",
+              "Show the result: This leads to cleaner rivers and oceans",
+              "Link your ideas: This stems from proper law enforcement"
             ]
           },
           {
-            title: "PARAGRAPH 4: Recommendation",
+            title: "PARAGRAPH 4: Your Idea - Recycling",
             items: [
-              "Clear recommendation: <span class='skeleton-emphasis'>I guarantee that...</span> or <span class='skeleton-emphasis'>I wouldn't hesitate to recommend...</span>",
-              "State who it's for: Anyone seeking an intelligent thriller",
-              "Final endorsement: One of the best psychological dramas"
+              "State your main idea: Comprehensive recycling programs help",
+              "Give an example: Deposit-return schemes for bottles and cans",
+              "Counter-argument: Some people say this is too costly",
+              "Refutation: However, long-term environmental benefits outweigh costs"
+            ]
+          },
+          {
+            title: "PARAGRAPH 5: Conclusion",
+            items: [
+              "Summarize main points: Solutions exist for environmental problems",
+              "State final position: Success requires government and individual commitment"
             ]
           }
         ],
-        reviewTitle: "The Silent Patient - A Film Review",
-        wordCount: "185 words",
-        answer: `<p><span class="discourse">Choosing a psychological thriller can be a huge challenge.</span> <span class="opinion">However</span>, The Silent Patient is <span class="discourse">clearly</span> a film <span class="vocabulary">one should consider</span>. This <span class="vocabulary">gripping adaptation</span> follows Alicia, a famous painter who stops speaking after being accused of murdering her husband.</p>
+        answer: `<p><span class="discourse">Few issues have divided opinion as much as</span> environmental destruction. <span class="opinion">Without doubt, I firmly believe that</span> <span class="vocabulary">pollution and environmental damage</span> can be <span class="vocabulary">effectively addressed</span> through <span class="causal">a combination of</span> technological innovation, strict regulations, and individual responsibility.</p>
 
-<p><span class="discourse">The thing that is most likely to impress you is</span> the <span class="vocabulary">outstanding performance</span> by the lead actress. Her ability to <span class="vocabulary">convey emotion</span> without words is <span class="vocabulary">genuinely remarkable</span>. <span class="discourse">What makes this so effective is</span> the way the director uses silence to <span class="vocabulary">build tension</span> throughout the film.</p>
+<p><span class="discourse">Firstly</span>, <span class="causal">the main reason is that</span> <span class="vocabulary">sustainable transport systems</span> can <span class="vocabulary">dramatically reduce</span> emissions. <span class="discourse">For example</span>, many cities have introduced electric buses and expanded metro networks. <span class="causal">As a result</span>, air quality has improved significantly in these areas. <span class="causal">This is largely because</span> fewer private vehicles are needed when <span class="vocabulary">efficient public transport</span> is available.</p>
 
-<p><span class="discourse">The other feature which I found most impressive is</span> the <span class="vocabulary">plot twist</span>. <span class="discourse">Just when</span> you think you understand what happened, the film <span class="vocabulary">reveals a shocking truth</span> that completely changes everything. <span class="discourse">For example</span>, the final twenty minutes will <span class="vocabulary">leave you speechless</span> as all the pieces fall into place. <span class="discourse">As a result</span>, you'll want to watch it again immediately to <span class="vocabulary">spot the clues</span> you missed.</p>
+<p><span class="discourse">Secondly</span>, <span class="causal">another significant point is that</span> <span class="vocabulary">protecting waterways</span> requires <span class="vocabulary">stringent enforcement</span> of environmental laws. <span class="discourse">For instance</span>, governments can impose <span class="vocabulary">substantial fines</span> on companies that dump <span class="vocabulary">industrial waste</span> into rivers and oceans. <span class="causal">Consequently</span>, this creates a strong <span class="vocabulary">financial incentive</span> for businesses to <span class="vocabulary">adopt cleaner practices</span>. <span class="causal">This stems from</span> the fact that <span class="vocabulary">legal penalties</span> make pollution more expensive than prevention.</p>
 
-<p><span class="opinion">I guarantee that</span> this film will not disappoint <span class="vocabulary">anyone who is seeking</span> an <span class="vocabulary">intelligent thriller</span>. It's one of the best psychological dramas I've ever seen, and <span class="opinion">I wouldn't hesitate to recommend</span> it to anyone who enjoys films that make you think.</p>`
+<p><span class="discourse">Furthermore</span>, <span class="causal">one important factor is that</span> comprehensive recycling programs can <span class="vocabulary">significantly reduce waste</span>. <span class="discourse">Consider the case of</span> deposit-return schemes for bottles and cans, which have proven <span class="vocabulary">highly effective</span> in Scandinavian countries. <span class="opinion">Admittedly</span>, some people argue that such programs are too costly to implement. <span class="opinion">However, I would argue that</span> the <span class="vocabulary">long-term environmental benefits</span> and <span class="vocabulary">resource conservation</span> far <span class="vocabulary">outweigh</span> the initial investment.</p>
+
+<p><span class="discourse">In conclusion</span>, <span class="opinion">I am convinced that</span> environmental problems can indeed be solved. <span class="discourse">Taking everything into account</span>, success requires both <span class="vocabulary">governmental commitment</span> to strict regulations and <span class="vocabulary">individual willingness</span> to change behaviors. <span class="causal">Only through</span> such <span class="vocabulary">collective action</span> can we <span class="vocabulary">ensure</span> a <span class="vocabulary">sustainable future</span> for coming generations.</p>`
       }
     ];
 
     let currentIndex = 0;
     let viewedCards = new Set();
     let isFlipped = false;
-    let touchStartY = 0;
-    let touchStartTime = 0;
-    let isScrolling = false;
 
     function toggleSlideMode() {
       const toggle = document.getElementById('toggleSwitch');
@@ -732,15 +718,14 @@
     }
 
     function render() {
-      const review = reviewData[currentIndex];
+      const essay = essayData[currentIndex];
       
-      document.getElementById('topicBadge').textContent = review.topic;
-      document.getElementById('typeBadge').textContent = review.type;
-      document.getElementById('contextText').textContent = review.context;
-      document.getElementById('questionBox').textContent = review.question;
+      document.getElementById('topicBadge').textContent = essay.topic;
+      document.getElementById('essayTypeBadge').textContent = essay.essayType;
+      document.getElementById('questionBox').textContent = essay.question;
       
       let skeletonHTML = '';
-      review.skeleton.forEach(section => {
+      essay.skeleton.forEach(section => {
         skeletonHTML += `
           <div class="skeleton-section">
             <div class="skeleton-title">${section.title}</div>
@@ -750,19 +735,15 @@
       });
       document.getElementById('skeletonContent').innerHTML = skeletonHTML;
       
-      document.getElementById('topicBadgeBack').textContent = review.topic;
-      document.getElementById('typeBadgeBack').textContent = review.type;
-      document.getElementById('reviewTitle').textContent = review.reviewTitle;
-      document.getElementById('wordCount').textContent = review.wordCount;
-      document.getElementById('reviewAnswer').innerHTML = review.answer;
+      document.getElementById('topicBadgeBack').textContent = essay.topic;
+      document.getElementById('essayTypeBadgeBack').textContent = essay.essayType;
+      document.getElementById('essayAnswer').innerHTML = essay.answer;
       
       viewedCards.add(currentIndex);
       updateDots();
     }
 
     function flipCard() {
-      if (isScrolling) return;
-      
       const card = document.getElementById('card');
       isFlipped = !isFlipped;
       if (isFlipped) {
@@ -779,7 +760,7 @@
     }
 
     function nextCard() {
-      if (currentIndex < reviewData.length - 1) {
+      if (currentIndex < essayData.length - 1) {
         unflipCard();
         currentIndex++;
         render();
@@ -804,7 +785,7 @@
       const dotsContainer = document.getElementById('navDots');
       let html = '';
       
-      for (let i = 0; i < reviewData.length; i++) {
+      for (let i = 0; i < essayData.length; i++) {
         let classes = 'dot';
         if (i === currentIndex) classes += ' active';
         else if (viewedCards.has(i)) classes += ' viewed';
@@ -823,41 +804,6 @@
         render();
       }
     }
-
-    const card = document.getElementById('card');
-    
-    card.addEventListener('click', (e) => {
-      if (!('ontouchstart' in window)) {
-        flipCard();
-      }
-    });
-    
-    card.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
-      touchStartTime = Date.now();
-      isScrolling = false;
-    }, { passive: true });
-
-    card.addEventListener('touchmove', (e) => {
-      const touchMoveY = e.touches[0].clientY;
-      const deltaY = Math.abs(touchMoveY - touchStartY);
-      
-      if (deltaY > 10) {
-        isScrolling = true;
-      }
-    }, { passive: true });
-
-    card.addEventListener('touchend', (e) => {
-      const touchDuration = Date.now() - touchStartTime;
-      
-      if (touchDuration < 200 && !isScrolling) {
-        flipCard();
-      }
-      
-      setTimeout(() => {
-        isScrolling = false;
-      }, 100);
-    }, { passive: true });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
